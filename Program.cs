@@ -15,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AssignmentsContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("AssignmentsConnectionString")));
 
+//builder.Services.AddTransient<IAssignmentsService, AssignmentsService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,5 +42,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
+
 
 app.Run();

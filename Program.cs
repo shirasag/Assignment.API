@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AssignmentsContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("AssignmentsConnectionString")));
 
-//builder.Services.AddTransient<IAssignmentsService, AssignmentsService>();
+builder.Services.AddTransient<IAssignmentsService, AssignmentsService>();
 
 var app = builder.Build();
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Assignment.API
 {
-    public class AssignmentsService
+    public class AssignmentsService: IAssignmentsService
     {
         private readonly AssignmentsContext _context;
 
@@ -12,17 +12,20 @@ namespace Assignment.API
             _context = context;
         }
 
-        public IEnumerable<Assignment> GetAll()
+        public async Task<ActionResult<IEnumerable<Assignment>>> GetAll()
         {
-            List<Assignment> ass = new List<Assignment>();
-            return ass;
+            return await _context.Assignments.ToListAsync();           
         }
 
+        public Assignment GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public interface IAssignmentsService
-    {        
-        IEnumerable<Assignment> GetAll();
+    {
+        Task<ActionResult<IEnumerable<Assignment>>> GetAll();
         Assignment GetById(int id);
     }
 }

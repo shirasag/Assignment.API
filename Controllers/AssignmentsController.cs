@@ -14,7 +14,7 @@ namespace Assignment.API.Controllers
     public class AssignmentsController : ControllerBase
     {
         private readonly AssignmentsContext _context;
-        private IAssignmentsService _assignmentService;
+        private readonly IAssignmentsService _assignmentService;
 
         public AssignmentsController(AssignmentsContext context, IAssignmentsService assignmentService)
         {
@@ -26,17 +26,13 @@ namespace Assignment.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
         {
-            //if (_context.Assignments == null)
+            return await _context.Assignments.ToListAsync();
+            //ActionResult<IEnumerable<Assignment>> assignmentList = _assignmentService.GetAll();
+            //if (assignmentList == null)
             //{
             //    return NotFound();
             //}
-            IEnumerable<Assignment> assignmentList = new List<Assignment>();
-            assignmentList = _assignmentService.GetAll();
-            if (assignmentList == null)
-            {
-                return NotFound();
-            }
-            return await _context.Assignments.ToListAsync();
+            //return assignmentList;
         }
 
         // GET: api/Assignments/5
@@ -92,8 +88,9 @@ namespace Assignment.API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Assignment>> PostAssignment(Assignment assignment)
-        {
-          if (_context.Assignments == null)
+        {        
+            
+            if (_context.Assignments == null)
           {
               return Problem("Entity set 'AssignmentsContext.Assignments'  is null.");
           }

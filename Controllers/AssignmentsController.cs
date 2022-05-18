@@ -84,6 +84,67 @@ namespace Assignment.API.Controllers
             return NoContent();
         }
 
+        [HttpPost("Archive/{id}")]
+        public async Task<IActionResult> Archive(int id)
+        {
+            var assignment = await _context.Assignments.FindAsync(id);
+
+            if (assignment == null)
+            {
+                return NotFound();
+            }
+            _context.Entry(assignment).Entity.isArchived = true;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AssignmentExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
+        [HttpPost("End/{id}")]
+        public async Task<IActionResult> End(int id)
+        {
+            var assignment = await _context.Assignments.FindAsync(id);
+
+            if(assignment == null)
+            {
+                return NotFound();
+            }
+            _context.Entry(assignment).Entity.isEnded = true;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AssignmentExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/Assignments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

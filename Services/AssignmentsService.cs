@@ -12,6 +12,7 @@ namespace Assignment.API
             _context = context;
         }
 
+        
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAll()
         {
             return await _context.Assignments.ToListAsync();           

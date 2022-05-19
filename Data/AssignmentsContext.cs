@@ -15,8 +15,7 @@ namespace Assignment.API
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        }
-        //entities
+        }       
         public DbSet<Assignment> Assignments { get; set; }
 
     }

@@ -22,7 +22,7 @@ namespace Assignment.API.Controllers
             _assignmentService = assignmentService;
         }
 
-        // GET: api/Assignments
+     
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
         {
@@ -34,8 +34,7 @@ namespace Assignment.API.Controllers
             //}
             //return assignmentList;
         }
-
-        // GET: api/Assignments/5
+      
         [HttpGet("{id}")]
         public async Task<ActionResult<Assignment>> GetAssignment(int id)
         {
@@ -53,8 +52,7 @@ namespace Assignment.API.Controllers
             return assignment;
         }
 
-        // PUT: api/Assignments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Assignments/5      
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAssignment(int id, Assignment assignment)
         {
@@ -144,9 +142,7 @@ namespace Assignment.API.Controllers
 
             return NoContent();
         }
-
-        // POST: api/Assignments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+         
         [HttpPost]
         public async Task<ActionResult<Assignment>> PostAssignment(Assignment assignment)
         {        
@@ -160,8 +156,7 @@ namespace Assignment.API.Controllers
 
             return CreatedAtAction("GetAssignment", new { id = assignment.id }, assignment);
         }
-
-        // DELETE: api/Assignments/5
+     
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAssignment(int id)
         {

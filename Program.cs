@@ -13,12 +13,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AssignmentsContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("AssignmentsConnectionString")));
 
-builder.Services.AddTransient<IAssignmentsService, AssignmentsService>();
 
-builder.Services.Configure<JsonOptions>(options =>
-{
-    options.SerializerOptions.PropertyNameCaseInsensitive = true;
-});
+//builder.Services.Configure<JsonOptions>(options =>
+//{
+//    options.SerializerOptions.PropertyNameCaseInsensitive = true;
+//});
 
 var app = builder.Build();
 

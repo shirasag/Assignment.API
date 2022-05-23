@@ -26,6 +26,7 @@ namespace Assignment.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
         {
+            List<Assignment> li = await _context.Assignments.ToListAsync();
             return await _context.Assignments.ToListAsync();
             //ActionResult<IEnumerable<Assignment>> assignmentList = _assignmentService.GetAll();
             //if (assignmentList == null)
@@ -52,35 +53,36 @@ namespace Assignment.API.Controllers
             return assignment;
         }
 
-        // PUT: api/Assignments/5      
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAssignment(int id, Assignment assignment)
-        {
-            if (id != assignment.id)
-            {
-                return BadRequest();
-            }
+        //// PUT: api/Assignments/5      
+        //[HttpPost("{assignment}")]
+        //public async Task<IActionResult> PostAssignment(Assignment assignment)
+        //{
+        //    int id = 0;
+        //    if (id != assignment.id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(assignment).State = EntityState.Modified;
+        //    _context.Entry(assignment).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AssignmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!AssignmentExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         [HttpPost("Archive/{id}")]
         public async Task<IActionResult> Archive(int id)
@@ -144,7 +146,7 @@ namespace Assignment.API.Controllers
         }
          
         [HttpPost]
-        public async Task<ActionResult<Assignment>> PostAssignment(Assignment assignment)
+        public async Task<ActionResult<Assignment>> PostAssignment([FromBody]  Assignment assignment)
         {        
             
             if (_context.Assignments == null)

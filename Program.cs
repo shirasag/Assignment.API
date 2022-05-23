@@ -1,4 +1,5 @@
 using Assignment.API;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -13,6 +14,11 @@ builder.Services.AddDbContext<AssignmentsContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("AssignmentsConnectionString")));
 
 builder.Services.AddTransient<IAssignmentsService, AssignmentsService>();
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.PropertyNameCaseInsensitive = true;
+});
 
 var app = builder.Build();
 
@@ -29,11 +35,10 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-// * need to delete that, use for individual users account
-//app.UseCors(x => x
-//    .AllowAnyOrigin()
-//    .AllowAnyMethod()
-//    .AllowAnyHeader());
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>

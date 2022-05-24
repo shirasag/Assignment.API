@@ -14,20 +14,24 @@ namespace Assignment.API.Controllers
     public class AssignmentsController : ControllerBase
     {
         private readonly AssignmentsContext _context;
-        private readonly IAssignmentsService _assignmentService;
+       
 
-        public AssignmentsController(AssignmentsContext context, IAssignmentsService assignmentService)
+        public AssignmentsController(AssignmentsContext context)
         {
-            _context = context;
-            _assignmentService = assignmentService;
+            _context = context;            
         }
 
      
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
         {
-            List<Assignment> li = await _context.Assignments.ToListAsync();
-            return await _context.Assignments.ToListAsync();          
+            List<Assignment> list = await _context.Assignments.ToListAsync();
+            // ((endDate != null) ? ((endDate-startDate).Value.TotalDays > 7 ? true : isArchived) : isArchived);
+            foreach (var item in list)
+            {
+                item.isArchived = (item.endDate != null) ? ((DateTime.Now - item.endDate).Value.TotalDays > 7 ? true : item.isArchived) : item.isArchived;
+            }
+            return list;
         }
       
         [HttpGet("{id}")]
@@ -49,7 +53,7 @@ namespace Assignment.API.Controllers
 
         
 
-        [HttpPost("Archive/{id}")]
+        [HttpPut("Archive/{id}")]
         public async Task<IActionResult> Archive(int id)
         {
             var assignment = await _context.Assignments.FindAsync(id);
@@ -66,21 +70,14 @@ namespace Assignment.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AssignmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
         }
 
 
-        [HttpPost("End/{id}")]
+        [HttpPut("End/{id}")]
         public async Task<IActionResult> End(int id)
         {
             var assignment = await _context.Assignments.FindAsync(id);
@@ -97,21 +94,14 @@ namespace Assignment.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AssignmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
         }
          
         [HttpPost]
-        public async Task<ActionResult<Assignment>> PostAssignment([FromBody]  Assignment assignment)
+        public async Task<ActionResult<Assignment>> PostAssignment(Assignment assignment)
         {        
             
             if (_context.Assignments == null)
@@ -142,10 +132,6 @@ namespace Assignment.API.Controllers
 
             return NoContent();
         }
-
-        private bool AssignmentExists(int id)
-        {
-            return (_context.Assignments?.Any(e => e.id == id)).GetValueOrDefault();
-        }
+       
     }
 }

@@ -28,10 +28,10 @@ namespace Assignment.API
         public bool isRepeated { get; set; }
         
         public bool isEnded { get; set; }
-        public bool? isArchived { get; set; }
+        public bool isArchived { get; set; }
         [NotMapped]
-        public Status status => (Status)(isEnded ? 1 : 0);
-	
+        public Status status => (Status)(isEnded ? 1 : 0);	
+
     }
 
     public enum AssignmentType

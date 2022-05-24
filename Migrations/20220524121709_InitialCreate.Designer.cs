@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignment.API.Migrations
 {
     [DbContext(typeof(AssignmentsContext))]
-    [Migration("20220516162607_InitialCreate")]
+    [Migration("20220524121709_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace Assignment.API.Migrations
                     b.Property<DateTime?>("endDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("isArchived")
+                    b.Property<bool>("isArchived")
                         .HasColumnType("bit");
 
                     b.Property<bool>("isEnded")

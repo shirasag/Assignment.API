@@ -36,7 +36,7 @@ namespace Assignment.API.Migrations
                     b.Property<DateTime?>("endDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("isArchived")
+                    b.Property<bool>("isArchived")
                         .HasColumnType("bit");
 
                     b.Property<bool>("isEnded")

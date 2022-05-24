@@ -22,7 +22,7 @@ namespace Assignment.API.Migrations
                     endDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     isRepeated = table.Column<bool>(type: "bit", nullable: false),
                     isEnded = table.Column<bool>(type: "bit", nullable: false),
-                    isArchived = table.Column<bool>(type: "bit", nullable: true)
+                    isArchived = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
